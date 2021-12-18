@@ -2,6 +2,8 @@
 const express = require("express");
 const morgan = require('morgan'); //morgan logs req information
 const campsiteRouter = require('./routes/campsiteRouter')
+const promotionRouter = require('./routes/promotionRouter')
+const partnerRouter = require('./routes/partnerRouter')
 
 const hostname = "localhost";
 const port = 3000;
@@ -12,28 +14,8 @@ app.use(morgan('dev')); //configures morgan using the development version
 app.use(express.json()) //This will parse json data into js objects so we can use the data in js
 
 app.use('/campsites', campsiteRouter)
-
-
-//*** May be useful for workshop
-//Allow us to store whatever the client sends as part of the path after the / as a route param named campsiteId
-// app.get('/campsites/:campsiteId', (req, res) => {
-//     res.end(`Will send details of the campsite: ${req.params.campsiteId} to you`)
-// })
-
-// app.post('/campsites/:campsiteId', (req, res) => {
-//     res.statusCode = 403
-//     res.end(`POST operation not supported on /campsites/${req.params.campsiteId}`);
-// })
-
-// app.put('/campsites/:campsiteId', (req, res) => {
-//     res.write(`Updating the campsite: ${req.params.campsiteId}\n`);
-//     res.end(`Will update the campsite: ${req.body.name}
-//         with description: ${req.body.description}`);
-// });
-
-// app.delete('/campsites/:campsiteId', (req, res) => {
-//     res.end(`Deleting campsite: ${req.params.campsiteId}`);
-// });
+app.use('/promotions', promotionRouter)
+app.use('/partners', partnerRouter)
 
 //Setting up express to serve files from public folder
 app.use(express.static(__dirname + '/public')) //__dirname refers to the absolute path of the current directory of the file that its in

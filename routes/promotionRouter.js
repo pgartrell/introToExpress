@@ -1,10 +1,7 @@
 const express =  require('express')
-const campsiteRouter = express.Router()
+const promotionRouter = express.Router()
 
-//Chain all methods with same path together. removing the word "app" from methods and '/campsites' from .route() because it is already defined in the route in server.js
-campsiteRouter.route('/')
-
-
+promotionRouter.route('/promotions')
 .all((req, res, next) => { //catch all routing method. Any http req will trigger this method
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain') //send back plain text in response body
@@ -29,8 +26,8 @@ campsiteRouter.route('/')
     res.end('Deleting all campsites')
 });
 
-campsiteRouter.route('/:campsiteId')
 
+promotionRouter.route('/:promotionId')
 .all((req, res, next) => { //catch all routing method. Any http req will trigger this method
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain') //send back plain text in response body
@@ -39,24 +36,22 @@ campsiteRouter.route('/:campsiteId')
 
 // Allow us to store whatever the client sends as part of the path after the / as a route param named campsiteId
 .get((req, res) => {
-    res.end(`Will send details of the campsite: ${req.params.campsiteId} to you`)
+    res.end(`Will send details of the campsite: ${req.params.promotionId} to you`)
 })
 
 .post((req, res) => {
     res.statusCode = 403
-    res.end(`POST operation not supported on /campsites/${req.params.campsiteId}`);
+    res.end(`POST operation not supported on /campsites/${req.params.promotionId}`);
 })
 
 .put((req, res) => {
-    res.write(`Updating the campsite: ${req.params.campsiteId}\n`);
+    res.write(`Updating the campsite: ${req.params.promotionId}\n`);
     res.end(`Will update the campsite: ${req.body.name}
         with description: ${req.body.description}`);
 })
 
 .delete((req, res) => {
-    res.end(`Deleting campsite: ${req.params.campsiteId}`);
+    res.end(`Deleting campsite: ${req.params.promotionId}`);
 });
 
-
-
-module.exports = campsiteRouter
+module.exports = promotionRouter
